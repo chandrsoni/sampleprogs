@@ -1,47 +1,62 @@
-
-class ListN{
+class Node {
     public:
     int value;
-    ListN* next;
-    ListN(int val){
+    Node* next;
+    Node(int val){
         value = val;
         next = NULL;
     }
 };
 
-class LinkedL{
-    private:
-    ListN* begin;
+class LinkedL {
     public:
+    Node *first, *last;
+    int size;
     LinkedL(){
-        begin = NULL;
+        size = 0;
+        first = last = NULL;
     }
-    void insert(int val){
-        ListN* toInsert = new ListN(val);
-        toInsert -> next = begin;
-        begin = toInsert;
+    void add_back(int val){
+        cout << "adding number" << endl;
+        size++;
+        if(first == NULL){
+            first = last = new Node(val);
+            return;
+        }
+        last->next = new Node(val);
+        last = last->next;
+    }
+    void add_front(int val){
+        size++;
+        if(first == NULL){
+            first = last = new Node(val);
+            return;
+        }
+        Node* tempFirst = new Node(val);
+        tempFirst->next = first;
+        first = tempFirst;
     }
     
     void print(){
-        ListN* cpointer = begin;
-        while(cpointer != NULL){
-            cout << cpointer -> value <<endl;
-            cpointer = cpointer -> next;
+        Node *it = first;
+        while(it != NULL){
+            cout << (it->value) << ',';
+            it = it->next;
         }
+        
+        cout <<endl;
     }
 };
 
 int main() {
-    LinkedL a;
-    a.print();
-    cout<<"here"<< endl;
-    a.insert(3);
-    a.insert(2);
-    a.insert(1);
-    a.insert(0);
-    a.insert(9);
-    a.insert(8);
-    a.insert(7);
-    a.insert(6);
-    a.print();
+    int size, input;
+    cin >> size;
+    LinkedL numList;
+    for(int i = 0; i < size; i++){
+        cin >> input;
+        numList.add_back(input);
+    }
+    
+    numList.print();
+    cout << "something" << endl;
 }
